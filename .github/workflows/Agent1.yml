@@ -1,4 +1,28 @@
-- name: Run agent
-  env:
-    BrowserUse_API: ${{ secrets.BrowserUse_API }}
-  run: python automation.py
+name: Browser-Use Agent
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install browser-use-sdk
+
+      - name: Run agent
+        env:
+          BrowserUse_API: ${{ secrets.BrowserUse_API }}
+        run: python automation.py
