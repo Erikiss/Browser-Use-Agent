@@ -1,0 +1,14 @@
+# pip install browser-use-sdk
+from browser_use_sdk import BrowserUse
+
+# Initialize the client with your API key
+client = BrowserUse(api_key="bu_0t6IWN5_6WRr8MQwB1P479Gr7fhLQvOA2BOcfmo5Bwo")
+
+# Create a task for the browser agent
+task = client.tasks.create_task(
+    task="Go to browser-use.com/changelog and summarize the latest updates.",
+)
+
+# Wait for the task to complete and get the result
+result = task.complete()
+print(result.output)
